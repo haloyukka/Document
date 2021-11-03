@@ -1,5 +1,3 @@
-# Document
-
 # Block Elements
 
 ## Headers 見出し
