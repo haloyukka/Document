@@ -1,0 +1,13 @@
+
+PlantUML_env:.
+│  readme.txt ★大まかなセットアップ手順
+│  
+├─plantUML_manual ★plantUMLの書き方マニュアル(日・英)
+│      PlantUML_Language_Reference_Guide_en.pdf
+│      PlantUML_Language_Reference_Guide_ja.pdf
+│      
+└─setup ★セットアップに必要なツール類
+        graphviz-2.38.msi
+        jre-8u211-windows-x64.exe
+        VSCodeUserSetup-x64-1.33.1.exe
+        

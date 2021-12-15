@@ -1,0 +1,830 @@
+/'
+----------------------------------------------------------------------------------------------------
+クラス図
+https://plantuml.com/ja/class-diagram
+----------------------------------------------------------------------------------------------------
+'/
+
+
+/'
+----------------------------------------------------------------------------------------------------
+クラス間の関係
+クラス間の関係は次の記号を使用して定義されています :
+
+Type	Symbol	Drawing
+Extension	<|--	
+Composition	*--	
+Aggregation	o--	
+
+-- を .. に置き換えると点線にできます。
+
+これらのルールを知ることで、以下の図面を描くことができます:
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+Class01 <|-- Class02
+Class03 *-- Class04
+Class05 o-- Class06
+Class07 .. Class08
+Class09 -- Class10
+@enduml
+
+
+@startuml
+Class11 <|.. Class12
+Class13 --> Class14
+Class15 ..> Class16
+Class17 ..|> Class18
+Class19 <--* Class20
+@enduml
+
+
+@startuml
+Class21 #-- Class22
+Class23 x-- Class24
+Class25 }-- Class26
+Class27 +-- Class28
+Class29 ^-- Class30
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+関係のラベル
+:にテキストを続けることによって、関係へラベルを追加することが可能です。
+
+多重度を示す為に関係のそれぞれの側にダブルクォーテーション""を使うことができます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+Class01 "1" *-- "many" Class02 : contains
+
+Class03 o-- Class04 : aggregation
+
+Class05 --> "1" Class06
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+ラベルの最初または最後に< か > を使って、他のオブジェクトへの関係を示す矢印を追加できます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+class Car
+
+Driver - Car : drives >
+Car *- Wheel : have 4 >
+Car -- Person : < owns
+
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+メソッドの追加
+:に続けてフィールド名やメソッド名を記述すると、フィールドやメソッドを宣言できます。
+
+システムは括弧をチェックしてメソッドとフィールドのどちらなのかを選択します。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+Object <|-- ArrayList
+
+Object : equals()
+ArrayList : Object[] elementData
+ArrayList : size()
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+波括弧 {} を使って、フィールドやメソッドをくくることもできます。
+構文はタイプや名前の順番について非常に柔軟であることに注意してください。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+class Dummy {
+  String data
+  void methods()
+}
+
+class Flight {
+   flightNumber : Integer
+   departureTime : Date
+}
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+You can use {field} and {method} modifiers to override default behaviour of the parser about fields and methods.
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+class Dummy {
+  {field} A field (despite parentheses)
+  {method} Some method
+}
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+可視性の定義
+メソッドやフィールドを定義するときに対応する項目の可視性を定義する記号を使用することができます。
+
+Character	Icon for field	Icon for method	Visibility
+-			private
+#			protected
+~			package private
++			public
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+class Dummy {
+ -field1
+ #field2
+ ~method1()
+ +method2()
+}
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+コマンド skinparam classAttributeIconSize 0 を使用してこの機能を切ることができます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+skinparam classAttributeIconSize 0
+class Dummy {
+ -field1
+ #field2
+ ~method1()
+ +method2()
+}
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+Abstract と Static
+静的または抽象的なメソッドまたはフィールドは {static} または {abstract} 修飾子を使用することで定義することができます。
+
+これらの修飾子は行の始めまたは終りに使用することができます。 {static} の代わりに {classifier} もまた使用できます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+class Dummy {
+  {static} String id
+  {abstract} void methods()
+}
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+高等なクラス本体
+デフォルトでは,メソッドやフィールドは PlantUML によって自動再編成されます。メソッドやフィールドに独自の順序付けを定義するためのセパレータを使用できます。以下のセパレータが使用できます： --..==__
+
+セパレータ内でタイトルを使用することもできます：
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+class Foo1 {
+  You can use
+  several lines
+  ..
+  as you want
+  and group
+  ==
+  things together.
+  __
+  You can have as many groups
+  as you want
+  --
+  End of class
+}
+
+class User {
+  .. Simple Getter ..
+  + getName()
+  + getAddress()
+  .. Some setter ..
+  + setName()
+  __ private data __
+  int age
+  -- encrypted --
+  String password
+}
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+注釈とステレオタイプ
+ステレオタイプは、キーワード class に << と >> で定義されます。
+
+注釈の定義には、キーワード note left of, note right of, note top of, note bottom of も使用できます。
+
+クラス定義の最後には note left, note right, note top, note bottom も使用できます。
+
+注釈は、キーワード note とで単独に定義することができ、記号 .. を使用して他のオブジェクトとリンクすることもできます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+class Object << general >>
+Object <|--- ArrayList
+
+note top of Object : In java, every class\nextends this one.
+
+note "This is a floating note" as N1
+note "This note is connected\nto several objects." as N2
+Object .. N2
+N2 .. ArrayList
+
+class Foo
+note left: On last defined class
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+注釈の詳細
+次のようないくつかの HTML タグを使用することも可能です：
+
+<b>
+<u>
+<i>
+<s>, <del>, <strike>
+<font color="#AAAAAA"> or <font color="colorName">
+<color:#AAAAAA> or <color:colorName>
+<size:nn> to change font size
+<img src="file"> or <img:file>: the file must be accessible by the filesystem
+また、複数行にまたがる注釈も可能です。
+
+クラス定義の最後には note left, note right, note top, note bottom も使用できます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+class Foo
+note left: On last defined class
+
+note top of Object
+  In java, <size:18>every</size> <u>class</u>
+  <b>extends</b>
+  <i>this</i> one.
+end note
+
+note as N1
+  This note is <u>also</u>
+  <b><color:royalBlue>on several</color>
+  <s>words</s> lines
+  And this is hosted by <img:sourceforge.jpg>
+end note
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+リンクへの注釈
+リンク定義の直後に note on link を使用して、リンクに注釈を加えることが可能です。
+
+もし注釈の相対位置を変えたい場合には、ラベル note left on link, note right on link, note top on link, note bottom on link も使用できます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+class Dummy
+Dummy --> Foo : A link
+note on link #red: note that is red
+
+Dummy --> Foo2 : Another link
+note right on link #blue
+	this is my note on right link
+	and in blue
+end note
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+抽象クラスとインタフェース
+抽象クラスは、キーワード abstract または abstract class を使用して宣言できます。
+
+そのクラスは イタリック体 で印字されます。
+
+キーワード interface, annotation と enum も使用できます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+abstract class AbstractList
+abstract AbstractCollection
+interface List
+interface Collection
+
+List <|-- AbstractList
+Collection <|-- AbstractCollection
+
+Collection <|- List
+AbstractCollection <|- AbstractList
+AbstractList <|-- ArrayList
+
+class ArrayList {
+  Object[] elementData
+  size()
+}
+
+enum TimeUnit {
+  DAYS
+  HOURS
+  MINUTES
+}
+
+annotation SuppressWarnings
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+非文字の使用
+クラス（または列挙型...）の表示に文字以外を使用したい場合は、次のいずれかの方法ですることができます：
+
+クラス定義にはキーワード as を使用する
+クラス名の前後に引用符 "" を入れる
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+class "This is my class" as class1
+class class2 as "It works this way too"
+
+class2 *-- "foo/dummy" : use
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+属性、メソッド等の非表示
+コマンド hide/show を使用して、クラスの表示をパラメータ化できます。
+
+基本のコマンドは hide empty members です。このコマンドは属性やメソッドが空の場合に非表示にします。
+
+empty members の代わりに使用することができます：
+
+empty fields または empty attributes は空のフィールドに、
+empty methods は空のメソッドに、
+fields または attributes は、それらが記述されていても非表示になります、
+methods はメソッドが記述されていても非表示になります、
+members はフィールドとメソッドが記述されていても非表示になります、
+circle はクラス名の前の丸で囲んだ文字に、
+stereotype はステレオタイプに。
+キーワード hide または show のすぐ後ろに提供することもできます：
+class は全てのクラスに、
+interface は全てのインタフェースに、
+enum は全ての列挙型に、
+<<foo1>> は foo1 でステレオタイプ化されたクラスに、
+既存のクラス名。
+コマンド show/hide をルールや例外の定義にそれぞれ使用することができます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+
+class Dummy1 {
+  +myMethods()
+}
+
+class Dummy2 {
+  +hiddenMethod()
+}
+
+class Dummy3 <<Serializable>> {
+	String name
+}
+
+hide members
+hide <<Serializable>> circle
+show Dummy1 methods
+show <<Serializable>> fields
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+非表示クラス
+コマンド show/hide でクラスを非表示にすることができます。
+これは大規模なインクルードファイルを定義する場合で、ファイルのインクルードの後でいくつかのクラスを非表示にしたい場合に有用である可能性が有ります。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+class Foo1
+class Foo2
+
+Foo2 *-- Foo1
+
+hide Foo2
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+ジェネリクスの使用
+括弧 < と > を使用してジェネリクスの使用をクラスに定義できます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+class Foo<? extends Element> {
+  int size()
+}
+Foo *- Element
+@enduml
+
+/'
+----------------------------------------------------------------------------------------------------
+この描画はskinparam genericDisplay oldコマンドにより非表示にすることができます。
+
+特殊な目印
+通常、目印文字 (C,I,E,A) は、クラス、インターフェイス、列挙型と抽象クラスのために使用されます。
+
+しかし、つぎの例のように単一の文字と色を追加し、ステレオタイプを定義するクラスに独自の目印を作成することができます：
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+class System << (S,#FF7700) Singleton >>
+class Date << (D,orchid) >>
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+パッケージ
+キーワード package を使用してパッケージを定義でき、必要に応じてパッケージの背景色（HTML カラーコードまたは名前）を宣言します。
+
+パッケージ定義は入れ子にできることに注意してください。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+package "Classic Collections" #DDDDDD {
+  Object <|-- ArrayList
+}
+
+package net.sourceforge.plantuml {
+  Object <|-- Demo1
+  Demo1 *- Demo2
+}
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+パッケージスタイル
+パッケージに利用可能なさまざまなスタイルがあります。
+
+コマンド skinparam packageStyle を使用してデフォルトのスタイルを設定する、またはパッケージのステレオタイプを使用する、のどちらかで指定することができます。 or by using a stereotype on the package:
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+scale 750 width
+package foo1 <<Node>> {
+  class Class1
+}
+
+package foo2 <<Rectangle>> {
+  class Class2
+}
+
+package foo3 <<Folder>> {
+  class Class3
+}
+
+package foo4 <<Frame>> {
+  class Class4
+}
+
+package foo5 <<Cloud>> {
+  class Class5
+}
+
+package foo6 <<Database>> {
+  class Class6
+}
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+次の例のように、パッケージ間のリンクを定義することもできます：
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+skinparam packageStyle rectangle
+
+package foo1.foo2 {
+}
+
+package foo1.foo2.foo3 {
+  class Object
+}
+
+foo1.foo2 +-- foo1.foo2.foo3
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+名前空間
+パッケージ内では、クラスの名前はこのクラスの一意な識別子です。 それは、全く同じ名前の 2 つのクラスを異なるパッケージに持つことができないことを意味します。
+そのような場合、パッケージの代わりに名前空間を使用したらいいでしょう。
+名前空間からの完全修飾名によりクラスを参照することができます。デフォルトの名前空間からのクラスは、一つのドットで修飾します。
+明示的に名前空間を作成する必要はないことに注意してください： 完全修飾されたクラスは自動的に適切な名前空間に置かれています。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+class BaseClass
+
+namespace net.dummy #DDDDDD {
+	.BaseClass <|-- Person
+	Meeting o-- Person
+	
+	.BaseClass <|- Meeting
+}
+
+namespace net.foo {
+  net.dummy.Person  <|- Person
+  .BaseClass <|-- Person
+
+  net.dummy.Meeting o-- Person
+}
+
+BaseClass <|-- net.unused.Person
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+自動的に名前空間を作成する
+コマンド set namespaceSeparator ??? を使用して、（ドット以外の）別の区切り文字を定義することができます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+set namespaceSeparator ::
+class X1::X2::foo {
+  some info
+}
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+コマンド set namespaceSeparator none を使用して、自動的に名前空間を作成する機能を無効にすることができます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+set namespaceSeparator none
+class X1.X2.foo {
+  some info
+}
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+ロリポップ（棒付きキャンディー）インタフェース
+次の構文を使用して、クラスにロリポップインタフェースを定義することもできます：
+----------------------------------------------------------------------------------------------------
+'/
+bar ()- foo
+bar ()-- foo
+foo -() bar
+@startuml
+class foo
+bar ()- foo
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+矢印の向きを変える
+デフォルトではクラス間のリンクは 2 つのダッシュ -- を持っており、垂直に配向されています。 次のように単一のダッシュ（またはドット）を置くことによって水平方向にリンクを使用することが可能です。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+Room o- Student
+Room *-- Chair
+@enduml
+
+/'
+----------------------------------------------------------------------------------------------------
+リンクをひっくり返すことにより向きを変えることができる:
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+Student -o Room
+Chair --* Room
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+キーワード left, right, up, down を矢印の内側に置くことにより、矢印の方向を変えることも可能です：
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+foo -left-> dummyLeft 
+foo -right-> dummyRight 
+foo -up-> dummyUp 
+foo -down-> dummyDown
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+方向の最初の文字を使用して矢印を短縮することができます
+（例えば、-d- を -down- の代わりに、または、最初の 2 文字 （-do-）。
+この機能を悪用してはならないことに注意してください。Graphviz は微調整のいらない良い結果を通常は与えてくれます。
+
+関連クラス
+この例のように、2 つのクラスの関係を定義した後で 関連クラス を定義することができます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+class Student {
+  Name
+}
+Student "0..*" - "1..*" Course
+(Student, Course) .. Enrollment
+
+class Enrollment {
+  drop()
+  cancel()
+}
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+別の方向にそれを定義することができます：
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+class Student {
+  Name
+}
+Student "0..*" -- "1..*" Course
+(Student, Course) . Enrollment
+
+class Enrollment {
+  drop()
+  cancel()
+}
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+化粧をする
+ダイアグラムの色やフォントを変更するには skinparam コマンドを使用します。
+
+このコマンドは以下の場面で使用できます。
+
+ダイアグラム定義内で他のコマンドを同様に。
+インクルードされたファイル内。
+設定ファイルのコマンドライン内やANTタスク内。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+skinparam class {
+	BackgroundColor PaleGreen
+	ArrowColor SeaGreen
+	BorderColor SpringGreen
+}
+skinparam stereotypeCBackgroundColor YellowGreen
+
+Class01 "1" *-- "many" Class02 : contains
+
+Class03 o-- Class04 : aggregation
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+ステレオタイプの化粧
+ステレオタイプクラスに特定の色やフォントを定義することができます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+skinparam class {
+	BackgroundColor PaleGreen
+	ArrowColor SeaGreen
+	BorderColor SpringGreen
+	BackgroundColor<<Foo>> Wheat
+	BorderColor<<Foo>> Tomato
+}
+skinparam stereotypeCBackgroundColor YellowGreen
+skinparam stereotypeCBackgroundColor<< Foo >> DimGray
+
+Class01 <<Foo>>
+Class03 <<Foo>>
+Class01 "1" *-- "many" Class02 : contains
+
+Class03 o-- Class04 : aggregation
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+色のグラデーション
+# 表記を使用して、クラスや注釈の個々の色を宣言することが可能です。
+
+標準的な色の名前または RGB コードのいずれかを使用することができます。
+
+次の構文で背景に色のグラデーションをつけることもできます。 2 つの色の名前を次のいずれかで分割：
+
+|,
+/,
+\,
+or -
+グラデーションの方向に依存します。
+例えば、こんなふうにできるかも：
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+
+skinparam backgroundcolor AntiqueWhite/Gold
+skinparam classBackgroundColor Wheat|CornflowerBlue
+
+class Foo #red-green
+note left of Foo #blue\9932CC
+  this is my
+  note on this class
+end note
+
+package example #GreenYellow/LightGoldenRodYellow {
+  class Dummy
+}
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+レイアウトの手助け
+ときには、デフォルトのレイアウトでは完璧とは言えないことがあります…
+
+togetherキーワードを使って複数のクラスをグループにまとめることができます: レイアウトエンジンは、それらのクラスを（あたかも同じパッケージにあるかのように）グループにまとめようとします。
+
+hiddenリンクを使ってレイアウトを強制することも可能です。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+class Bar1
+class Bar2
+together {
+  class Together1
+  class Together2
+  class Together3
+}
+Together1 - Together2
+Together2 - Together3
+Together2 -[hidden]--> Bar1
+Bar1 -[hidden]> Bar2
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+大きなファイルの分割
+時には、ある非常に大きな画像ファイルを受け取ることがあるでしょう。
+
+生成された画像を複数のファイルに分割するコマンド page (hpages)x(vpages) を使用することができます：
+
+hpages は横方向のページ数を示すコマンドであり、 そして vpages は縦方向のページ数を示すコマンドです。
+
+特定のスキンパラメータ設定を使用して、分割されたページに罫線を配置することもできます（例を参照）。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+' Split into 4 pages
+page 2x2
+skinparam pageMargin 10
+skinparam pageExternalColor gray
+skinparam pageBorderColor black
+
+class BaseClass
+
+namespace net.dummy #DDDDDD {
+	.BaseClass <|-- Person
+	Meeting o-- Person
+	
+	.BaseClass <|- Meeting
+
+}
+
+namespace net.foo {
+  net.dummy.Person  <|- Person
+  .BaseClass <|-- Person
+
+  net.dummy.Meeting o-- Person
+}
+
+BaseClass <|-- net.unused.Person
+@enduml
+

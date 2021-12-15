@@ -1,0 +1,911 @@
+/'
+----------------------------------------------------------------------------------------------------
+シーケンス図
+https://plantuml.com/ja/sequence-diagram
+----------------------------------------------------------------------------------------------------
+'/
+
+/'
+----------------------------------------------------------------------------------------------------
+基本的な例
+シーケンス -> を、2つの分類子間のメッセージを描画するために使います。 分類子を、明示的に宣言する必要はありません。
+点線の矢印を使う場合は、--> とします。
+
+また、<- や <-- を使うこともできます。 これらによって図の見た目が変わることはありませんが、可読性を高めることができます。 ただし、以上の方法はシーケンス図だけに当てはまります。ほかの種類の図には当てはまりません。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+Alice -> Bob: Authentication Request
+Bob --> Alice: Authentication Response
+
+Alice -> Bob: Another authentication Request
+Alice <-- Bob: another authentication Response
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+分類子の宣言
+キーワード participant を使って、分類子の並び順を変えることができます。
+
+分類子の宣言に別のキーワードを使用することも可能です：
+----------------------------------------------------------------------------------------------------
+'/
+actor
+boundary
+control
+entity
+database
+@startuml
+actor Foo1
+boundary Foo2
+control Foo3
+entity Foo4
+database Foo5
+collections Foo6
+Foo1 -> Foo2 : To boundary
+Foo1 -> Foo3 : To control
+Foo1 -> Foo4 : To entity
+Foo1 -> Foo5 : To database
+Foo1 -> Foo6 : To collections
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+キーワード as を使って分類子の名前を変更することができます。
+
+アクターや分類子の背景色を、HTML コードや色名を使って変更することもできます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+actor Bob #red
+' The only difference between actor
+'and participant is the drawing
+participant Alice
+participant "I have a really\nlong name" as L #99FF99
+/' You can also declare:
+   participant L as "I have a really\nlong name"  #99FF99
+  '/
+
+Alice->Bob: Authentication Request
+Bob->Alice: Authentication Response
+Bob->L: Log transaction
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+orderキーワードを使って、分類子が表示される順序を変更することもできます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+participant Last order 30
+participant Middle order 20
+participant First order 10
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+分類子名にアルファベット以外を使う
+分類子を定義するときに引用符を使用することができます。そして、分類子にエイリアスを与えるためにキーワード as を使用することができます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+Alice -> "Bob()" : Hello
+"Bob()" -> "This is very\nlong" as Long
+' You can also declare:
+' "Bob()" -> Long as "This is very\nlong"
+Long --> "Bob()" : ok
+@enduml
+
+
+/' 
+----------------------------------------------------------------------------------------------------
+自分自身へのメッセージ
+分類子は自分自身へメッセージを送信できます。
+
+\n を使用して、複数行のテキストを扱えます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+Alice->Alice: This is a signal to self.\nIt also demonstrates\nmultiline \ntext
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+矢印の見た目を変える
+矢印の見た目をいくつかの方法によって変更できます。
+
+メッセージの消失を示す最後の x を追加
+\ や / を < や > の代わりに使うと
+矢印の先端が上側だけまたは下側だけになります。
+矢印の先端を繰り返す (たとえば >> や //) と、矢印の先端が細くなります。
+-- を - の代わりに使うと、矢印が点線になります。
+矢じりに最後の "O" を追加
+双方向の矢印を使用する
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+Bob ->x Alice
+Bob -> Alice
+Bob ->> Alice
+Bob -\ Alice
+Bob \\- Alice
+Bob //-- Alice
+
+Bob ->o Alice
+Bob o\\-- Alice
+
+Bob <-> Alice
+Bob <->o Alice
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+矢印の色を替える
+以下の表記を使って、個々の矢印の色を変えることができます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+Bob -[#red]> Alice : hello
+Alice -[#0000FF]->Bob : ok
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+メッセージシーケンスの番号付け
+メッセージへ自動で番号を振るために、キーワード autonumber を使います。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+autonumber
+Bob -> Alice : Authentication Request
+Bob <- Alice : Authentication Response
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+autonumber 開始 で開始番号を、また、autonumber 開始増分 で増分も指定することができます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+autonumber
+Bob -> Alice : Authentication Request
+Bob <- Alice : Authentication Response
+
+autonumber 15
+Bob -> Alice : Another authentication Request
+Bob <- Alice : Another authentication Response
+
+autonumber 40 10
+Bob -> Alice : Yet another authentication Request
+Bob <- Alice : Yet another authentication Response
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+二重引用符で囲って番号の書式を指定することができます。
+その書式指定は Java の DecimalFormat 方式で行う
+（0 は桁を表し, # は存在しない場合は 0 で埋める桁を意味する）。
+HTMLタグを書式に使うこともできます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+autonumber "<b>[000]"
+Bob -> Alice : Authentication Request
+Bob <- Alice : Authentication Response
+
+autonumber 15 "<b>(<u>##</u>)"
+Bob -> Alice : Another authentication Request
+Bob <- Alice : Another authentication Response
+
+autonumber 40 10 "<font color=red><b>Message 0  "
+Bob -> Alice : Yet another authentication Request
+Bob <- Alice : Yet another authentication Response
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+autonumber stop と autonumber resume 増分書式 を自動採番の一時停止と再開にそれぞれを使用することができます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+autonumber 10 10 "<b>[000]"
+Bob -> Alice : Authentication Request
+Bob <- Alice : Authentication Response
+
+autonumber stop
+Bob -> Alice : dummy
+
+autonumber resume "<font color=red><b>Message 0  "
+Bob -> Alice : Yet another authentication Request
+Bob <- Alice : Yet another authentication Response
+
+autonumber stop
+Bob -> Alice : dummy
+
+autonumber resume 1 "<font color=blue><b>Message 0  "
+Bob -> Alice : Yet another authentication Request
+Bob <- Alice : Yet another authentication Response
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+Page Title, Header and Footer
+titleキーワードはページにタイトルをつけるのに使われます。
+headerやfooterを使うことにより、ページにヘッダーやフッターをつけて表示することができます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+
+header Page Header
+footer Page %page% of %lastpage%
+
+title Example Title
+
+Alice -> Bob : message 1
+Alice -> Bob : message 2
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+図の分割
+図を複数の画像に分けるためにキーワード newpage を使います。
+新しいページのタイトルをキーワード newpage の直後に書くことができます。
+これは、複数ページにわたる長い図を書くときに便利な機能です。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+
+Alice -> Bob : message 1
+Alice -> Bob : message 2
+
+newpage
+
+Alice -> Bob : message 3
+Alice -> Bob : message 4
+
+newpage A title for the\nlast page
+
+Alice -> Bob : message 5
+Alice -> Bob : message 6
+@enduml
+
+
+
+/'
+----------------------------------------------------------------------------------------------------
+メッセージのグループ化
+次のキーワードを使えば、メッセージをまとめてグループ化できます。
+
+alt/else
+opt
+loop
+par
+break
+critical
+group表示するテキスト
+ヘッダ部分に文字列を追加することが可能です。(group を除く)
+グループを閉じるにはキーワード end を使用します。
+注：グループはネスト可能です。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+Alice -> Bob: Authentication Request
+
+alt successful case
+
+	Bob -> Alice: Authentication Accepted
+	
+else some kind of failure
+
+	Bob -> Alice: Authentication Failure
+	group My own label
+		Alice -> Log : Log attack start
+	    loop 1000 times
+	        Alice -> Bob: DNS Attack
+	    end
+		Alice -> Log : Log attack end
+	end
+	
+else Another type of failure
+
+   Bob -> Alice: Please repeat
+   
+end
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+メッセージの注釈
+メッセージのすぐ後ろにキーワード note left または note right を使用しメッセージの注釈をつけることが可能です。
+
+end note キーワードを使って、複数行の注釈を付けることができます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+Alice->Bob : hello
+note left: this is a first note
+
+Bob->Alice : ok
+note right: this is another note
+
+Bob->Bob : I am thinking
+note left
+	a note
+	can also be defined
+	on several lines
+end note
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+その他の注釈
+分類子との相対位置を指定して注釈を付けるには、次のものを使います :
+注釈を目立たせるために、背景色を変えることができます。
+また、キーワード end note を使って複数行の注釈を付けることができます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+participant Alice
+participant Bob
+note left of Alice #aqua
+	This is displayed 
+	left of Alice. 
+end note
+ 
+note right of Alice: This is displayed right of Alice.
+
+note over Alice: This is displayed over Alice.
+
+note over Alice, Bob #FFAAAA: This is displayed\n over Bob and Alice.
+
+note over Bob, Alice
+	This is yet another
+	example of
+	a long note.
+end note
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+ノートの形を変える。
+キーワード hnote と rnote を使ってノートの形を変更できます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+caller -> server : conReq
+hnote over caller : idle
+caller <- server : conConf
+rnote over server
+ "r" as rectangle
+ "h" as hexagon
+endrnote
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+Creole と HTML
+PlantUML では creole フォーマットを使うこともできます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+participant Alice
+participant "The **Famous** Bob" as Bob
+
+Alice -> Bob : hello --there--
+... Some ~~long delay~~ ...
+Bob -> Alice : ok
+note left
+  This is **bold**
+  This is //italics//
+  This is ""monospaced""
+  This is --stroked--
+  This is __underlined__
+  This is ~~waved~~
+end note
+
+Alice -> Bob : A //well formatted// message
+note right of Alice 
+ This is <back:cadetblue><size:18>displayed</size></back> 
+ __left of__ Alice. 
+end note
+note left of Bob 
+ <u:red>This</u> is <color #118888>displayed</color> 
+ **<color purple>left of</color> <s:red>Alice</strike> Bob**. 
+end note
+note over Alice, Bob
+ <w:#FF33FF>This is hosted</w> by <img sourceforge.jpg>
+end note 
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+境界線
+== を使って、図を論理的なステップに分けることも出来ます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+
+== Initialization ==
+
+Alice -> Bob: Authentication Request
+Bob --> Alice: Authentication Response
+
+== Repetition ==
+
+Alice -> Bob: Another authentication Request
+Alice <-- Bob: another authentication Response
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+リファレンス
+キーワード ref over を使用して、図中にリファレンスを挿入できます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+participant Alice
+actor Bob
+
+ref over Alice, Bob : init
+
+Alice -> Bob : hello
+
+ref over Bob
+  This can be on
+  several lines
+end ref
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+= 遅延 =
+処理の遅延を表すために ... が使えます。また、作成した遅延にコメントを付けることもできます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+Alice -> Bob: Authentication Request
+...
+Bob --> Alice: Authentication Response
+...5 minutes latter...
+Bob --> Alice: Bye !
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+= 間隔 =
+図の間隔を調整するために、記号|||を使用することができます。
+さらにピクセル数を指定することもできます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+Alice -> Bob: message 1
+Bob --> Alice: ok
+|||
+Alice -> Bob: message 2
+Bob --> Alice: ok
+||45||
+Alice -> Bob: message 3
+Bob --> Alice: ok
+@enduml
+
+/'
+----------------------------------------------------------------------------------------------------
+ライフラインの活性化と破壊
+activate と deactivate を使って分類子の活性化を表します。
+分類子の活性化はライフラインで表されます。
+activate と deactivate は直前のメッセージに適用されます。
+destroy は分類子のライフラインが終わったことを表します。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+participant User
+
+User -> A: DoWork
+activate A
+
+A -> B: << createRequest >>
+activate B
+
+B -> C: DoWork
+activate C
+C --> B: WorkDone
+destroy C
+
+B --> A: RequestCreated
+deactivate B
+
+A -> User: Done
+deactivate A
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+ライフラインはネスト(入れ子に)することができ、色をつけることもできます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+participant User
+
+User -> A: DoWork
+activate A #FFBBBB
+
+A -> A: Internal call
+activate A #DarkSalmon
+
+A -> B: << createRequest >>
+activate B
+
+B --> A: RequestCreated
+deactivate B
+deactivate A
+A -> User: Done
+deactivate A
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+Return
+新しいコマンドreturnは、リターンメッセージを生成し、オプションでテキストラベルをつけることができます。 リターンする先は最も最近活性化したライフラインです。 構文は単純にreturn ラベルです。ラベルを与える場合には、通常のメッセージに与えることが可能な文字列を何でも与えることができます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+Bob -> Alice : hello
+activate Alice
+Alice -> Alice : some action
+return bye
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+分類子の生成
+キーワード create を、オブジェクトが最初のメッセージを受信する直前に置くことにより、このメッセージがオブジェクトを新しく 生成 していることを強調して表現できます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+Bob -> Alice : hello
+
+create Other
+Alice -> Other : new
+
+create control String
+Alice -> String
+note right : You can also put notes!
+
+Alice --> Bob : ok
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+Shortcut syntax for activation, deactivation, creation
+Immediately after specifying the target participant, the following syntax can be used:
+
+++ Activate the target (optionally a #color may follow this)
+-- Deactivate the source
+** Create an instance of the target
+!! Destroy an instance of the target
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+alice -> bob ++ : hello
+bob -> bob ++ : self call
+bob -> bib ++  #005500 : hello
+bob -> george ** : create
+return done
+return rc
+bob -> george !! : delete
+return success
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+インとアウトのメッセージ
+図の一部だけにフォーカスを当てたい場合には、インまたはアウトのメッセージを使えます。
+左角括弧 "[" を使って図の左端、 右角括弧 "]" を使って図の右側を表せます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+[-> A: DoWork
+
+activate A
+
+A -> A: Internal call
+activate A
+
+A ->] : << createRequest >>
+
+A<--] : RequestCreated
+deactivate A
+[<- A: Done
+deactivate A
+@enduml
+foo
+また、次の書き方も使えます：
+
+@startuml
+[-> Bob
+[o-> Bob
+[o->o Bob
+[x-> Bob
+
+[<- Bob
+[x<- Bob
+
+Bob ->]
+Bob ->o]
+Bob o->o]
+Bob ->x]
+
+Bob <-]
+Bob x<-]
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+Anchors and Duration
+With teoz usage it is possible to add anchors to the diagram and use the anchors to specify duration time.
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+!pragma teoz true
+
+{start} Alice -> Bob : start doing things during duration
+Bob -> Max : something
+Max -> Bob : something else
+{end} Bob -> Alice : finish
+
+{start} <-> {end} : some time
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+ステレオタイプとスポット
+<< と >> を使い分類子にステレオタイプをつけることができます。
+(X,color) と記述することによりステレオタイプに色付きの文字と円のアイコンをつけることができます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+participant "Famous Bob" as Bob << Generated >>
+participant Alice << (C,#ADD1B2) Testable >>
+
+Bob->Alice: First message
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+デフォルトでは guillemet キャラクターはステレオタイプを表示するために使用されます。 スキンパラメータ guillemet を使用してこの動作を変更することができます：
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+skinparam guillemet false
+participant "Famous Bob" as Bob << Generated >>
+participant Alice << (C,#ADD1B2) Testable >>
+
+Bob->Alice: First message
+@enduml
+
+
+@startuml
+participant Bob << (C,#ADD1B2) >>
+participant Alice << (C,#ADD1B2) >>
+
+Bob->Alice: First message
+
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+タイトルについての詳細
+タイトルには creole フォーマットが使用できます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+title __Simple__ **communication** example
+
+Alice -> Bob: Authentication Request
+Bob -> Alice: Authentication Response
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+タイトルの記述では \n を使用して新しい行を追加することができます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+title __Simple__ communication example\non several lines
+
+Alice -> Bob: Authentication Request
+Bob -> Alice: Authentication Response
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+また、キーワード title と end title を使うことにより、タイトルを複数行にわたって記述できます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+title
+ <u>Simple</u> communication example
+ on <i>several</i> lines and using <font color=red>html</font>
+ This is hosted by <img:sourceforge.jpg>
+end title
+
+Alice -> Bob: Authentication Request
+Bob -> Alice: Authentication Response
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+分類子の囲み
+キーワード box と end box を使い、分類子のまわりにボックスを描くことができます。
+タイトルや背景色をキーワード box に続けて任意で追加できます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+box "Internal Service" #LightBlue
+	participant Bob
+	participant Alice
+end box
+participant Other
+
+Bob -> Alice : hello
+Alice -> Other : hello
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+フッターの除去
+図のフッターを削除するにはキーワード hide footbox を使います。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+
+hide footbox
+title Footer removed
+
+Alice -> Bob: Authentication Request
+Bob --> Alice: Authentication Response
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+スキンパラメータ
+ダイアグラムの色やフォントを変更するには skinparam コマンドを使用します。
+このコマンドは以下の場面で使用できます。
+ダイアグラム定義内で他のコマンドを同様に。
+インクルードされたファイル内。
+設定ファイルのコマンドライン内やANTタスク内。
+次の例のように他のパラメータを変えることもできます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+actor User
+participant "First Class" as A
+participant "Second Class" as B
+participant "Last Class" as C
+
+User -> A: DoWork
+activate A
+
+A -> B: Create Request
+activate B
+
+B -> C: DoWork
+activate C
+C --> B: WorkDone
+destroy C
+
+B --> A: Request Created
+deactivate B
+
+A --> User: Done
+deactivate A
+@enduml
+
+
+@startuml
+skinparam backgroundColor #EEEBDC
+skinparam handwritten true
+
+skinparam sequence {
+	ArrowColor DeepSkyBlue
+	ActorBorderColor DeepSkyBlue
+	LifeLineBorderColor blue
+	LifeLineBackgroundColor #A9DCDF
+	
+	ParticipantBorderColor DeepSkyBlue
+	ParticipantBackgroundColor DodgerBlue
+	ParticipantFontName Impact
+	ParticipantFontSize 17
+	ParticipantFontColor #A9DCDF
+	
+	ActorBackgroundColor aqua
+	ActorFontColor DeepSkyBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+}
+
+actor User
+participant "First Class" as A
+participant "Second Class" as B
+participant "Last Class" as C
+
+User -> A: DoWork
+activate A
+
+A -> B: Create Request
+activate B
+
+B -> C: DoWork
+activate C
+C --> B: WorkDone
+destroy C
+
+B --> A: Request Created
+deactivate B
+
+A --> User: Done
+deactivate A
+@enduml
+
+
+/'
+----------------------------------------------------------------------------------------------------
+パディングの変更
+パディングの設定を変更することができます。
+----------------------------------------------------------------------------------------------------
+'/
+@startuml
+skinparam ParticipantPadding 20
+skinparam BoxPadding 10
+
+box "Foo1"
+participant Alice1
+participant Alice2
+end box
+box "Foo2"
+participant Bob1
+participant Bob2
+end box
+Alice1 -> Bob1 : hello
+Alice1 -> Out : out
+@enduml
+
