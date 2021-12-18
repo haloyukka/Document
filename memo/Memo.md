@@ -1,4 +1,12 @@
+Excelショートカット
+|key|detail|URL|
+|---|---|---|
+|Ctrl + Shift + [|参照データの選択|---|
+|Ctrl + Shift + ]|数式が入ったセルを選択|---|
+|Ctrl + .]|---|https://www.youtube.com/watch?v=HuW7knrSzf8|
+|Ctrl + Shift + \]|---|https://www.youtube.com/watch?v=MVbnZAvKDMM|
 
+---
 
 ツェッテルカステン  
 ドイツの天才社会学者二クラス・ルーマンが発明したメモ術  
