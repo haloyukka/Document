@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 機械学習における解釈性
 |aa|aa|
 |---|---|
@@ -11,6 +12,16 @@ https://engineering.mercari.com/blog/entry/2019-12-24-070000/#1
 
 https://hacarus.github.io/interpretable-ml-book-ja/interpretability-importance.html
 
+=======
+Excelショートカット
+|key|detail|URL|
+|---|---|---|
+|Ctrl + Shift + [|参照データの選択|---|
+|Ctrl + Shift + ]|数式が入ったセルを選択|---|
+|Ctrl + .]|---|https://www.youtube.com/watch?v=HuW7knrSzf8|
+|Ctrl + Shift + \]|---|https://www.youtube.com/watch?v=MVbnZAvKDMM|
+
+>>>>>>> 981deee5682d3064eb161bff84588bdaf9ef5426
 ---
 
 ツェッテルカステン  
