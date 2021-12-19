@@ -1,4 +1,17 @@
+# 機械学習における解釈性
+|aa|aa|
+|---|---|
+|GLM（一般化線形回帰モデル）|aa|
+|決定木|aa|
+|Feature Importance|aa|
+|Partial Dependence|aa|
+|感応度分析|aa|
 
+https://engineering.mercari.com/blog/entry/2019-12-24-070000/#1
+
+https://hacarus.github.io/interpretable-ml-book-ja/interpretability-importance.html
+
+---
 
 ツェッテルカステン  
 ドイツの天才社会学者二クラス・ルーマンが発明したメモ術  
