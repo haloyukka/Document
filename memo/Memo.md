@@ -1,3 +1,15 @@
+# Sprite
+スプライトは2Dグラフィックオブジェクトです。  
+スプライトを用いることで、容易に2Dキャラクターオブジェクトが生成できるので、簡単に2Dゲーム等を作製することが可能です。
+
+
+https://docs.unity3d.com/ja/2021.2/Manual/SpriteEditor.html
+
+https://gimo.jp/glossary/details/sprite.html
+
+
+---
+
 # 機械学習における解釈性
 |aa|aa|
 |---|---|
