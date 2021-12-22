@@ -1,3 +1,13 @@
+# 英単語・命名規則関連
+
+データベースオブジェクトの命名規約  
+https://qiita.com/genzouw/items/35022fa96c120e67c637
+
+プログラミングでよく使う英単語のまとめ  
+https://qiita.com/Ted-HM/items/7dde25dcffae4cdc7923
+
+---
+
 # 法線
 normal  
 曲線状の接円と接線が定義される点で接線に垂直な直線を法線という。  
