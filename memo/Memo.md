@@ -1,3 +1,9 @@
+# デザインパターン ：　オブザーバーパターン
+キーワード：SubjectとObserver  
+https://www.techscore.com/tech/DesignPattern/Observer.html/
+
+---
+
 # 緊急度と重要度を基準に齟齬との優先順位を見きわめる「時間管理のマトリックス」
 ||緊急度が高い|緊急度が低い|
 |---|---|---|
