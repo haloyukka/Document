@@ -1,3 +1,15 @@
+# C#のPartial
+partial型（C#リファレンス）  
+同名のクラスを別ファイルに記述することができる。  
+コンパイルされる時は１つのファイルに統合されて出力される。  
+
+MSドキュメント  
+部分型定義を使用すると、クラス、構造体、インターフェイス、またはレコーとの定義を複数のファイルに分割することができます。  
+https://docs.microsoft.com/ja-jp/dotnet/csharp/language-reference/keywords/partial-type
+
+https://youtu.be/PbtJt5tnnI8?t=137
+
+
 # デザインパターン ：　オブザーバーパターン
 キーワード：SubjectとObserver  
 https://www.techscore.com/tech/DesignPattern/Observer.html/
