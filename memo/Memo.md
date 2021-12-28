@@ -39,6 +39,7 @@ Webサイトの動かすことを詳しく解説しているのは黄色
 色、レイアウト、アニメーションこれら３つの要素全てに関わってくることです。  
 カラーパレットを作ることで、「色」と向き合うことができたり、「使いやすいレイアウトはどのようなものか」ということを考える機会になり、アニメーションを使った演出も学ぶことができます。
 
+
 https://qiita.com/Zect/items/81cd7f573a65274142de?utm_content=buffer82e1b&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
 
 ---
