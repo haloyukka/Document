@@ -1,6 +1,10 @@
+# color
+
+https://www.zekagraphic.com/16-beautiful-color-gradient-inspiration/
+
+---
+
 # 20220101
-
-
 
 ---
 
