@@ -1,3 +1,13 @@
+# フレームワークとライブラリの違い
+
+フレームワーク  
+全体の処理の流れが実装されており、その中の一部の具体的な処理を自分で実装して、はめ込めるようになっているシステム  
+
+ライブラリ  
+使いたい部品が入っている道具箱  
+
+https://qiita.com/azuki8/items/ad7710fdefaedc63e3f7?utm_content=buffer9a0a5&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
+
 # color
 
 https://www.zekagraphic.com/16-beautiful-color-gradient-inspiration/
