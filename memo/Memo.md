@@ -1,3 +1,10 @@
+# Pythonプログラムが実行される仕組み
+
+Interface  
+https://interface.cqpub.co.jp/wp-content/uploads/if2106_126.pdf
+
+---
+
 # 昭和天皇
 財を遺すは下  
 仕事を遺すは中  
