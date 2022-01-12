@@ -1,6 +1,8 @@
 # Python 動作原理
 https://atmarkit.itmedia.co.jp/ait/articles/1904/02/news024.html
 
+https://kaityo256.github.io/python_zero/howtowork/index.html
+
 # Pythonプログラムが実行される仕組み
 
 Interface  
