@@ -1,3 +1,40 @@
+# anbileのhandler
+
+▼handlersディレクティブ・notifyディレクティブ
+
+```
+・notifyディレクティブ
+  - taskが処理されchangedの場合に呼び出すhandlersを登録
+    - taskに指定可能
+    - 複数のタスクからhandlersが呼び出された場合
+      handlersに書かれたtaskは1度しか実行されない。
+・handlersディレクティブ
+  - notifyによって呼び出すtaskを登録
+    -playに指定可能
+```
+ 
+
+▼書式
+
+```
+tasks:
+  - name: 名前
+    モジュール名: 引数
+    notify:
+      - handler1_task
+
+ 
+
+handlers:
+  - name: handler1_task
+    モジュール名: 引数
+```
+
+▼ドキュメント  
+https://docs.ansible.com/ansible/2.9_ja/user_guide/playbooks_intro.html?highlight=handlers#handlers
+
+---
+
 # Python 動作原理
 https://atmarkit.itmedia.co.jp/ait/articles/1904/02/news024.html
 
