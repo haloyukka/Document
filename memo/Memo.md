@@ -1,4 +1,15 @@
-# anbileのhandler
+# wordcloud（ワードクラウド）
+
+頻出語を頻度に比例する大きさで雲のように並べたもの  
+```
+pip install wordcloud
+```
+
+ubuntuとwordcloud
+
+---
+
+# ansibleのhandler
 
 ▼handlersディレクティブ・notifyディレクティブ
 
