@@ -1,3 +1,8 @@
+# C++におけるclassとstructの違い
+
+`class`はデフォルトのアクセシビリティが`private`  
+`struct`はデフォルトのアクセシビリティが`public`  
+
 # wordcloud（ワードクラウド）
 
 頻出語を頻度に比例する大きさで雲のように並べたもの  
