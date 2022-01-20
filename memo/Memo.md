@@ -1,3 +1,7 @@
+# カラーピッカー
+just color picker  
+https://annystudio.com/software/colorpicker/
+
 # C++におけるclassとstructの違い
 
 `class`はデフォルトのアクセシビリティが`private`  
