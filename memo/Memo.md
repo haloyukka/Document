@@ -1,3 +1,9 @@
+# Unity のLightsモジュール
+
+このモジュールを使用して、指定した割合でパーティクルにリアルタイムライトを加えることができる。
+
+https://docs.unity3d.com/ja/2018.4/Manual/PartSysLightsModule.html
+
 # カラーピッカー
 just color picker  
 https://annystudio.com/software/colorpicker/
